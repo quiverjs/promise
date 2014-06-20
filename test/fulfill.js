@@ -4,7 +4,7 @@ import { defaultCreatePromise } from '../lib/promise.js'
 import { doubleFulfillPromiseConstructor } from '../lib/fulfill.js'
 
 describe('promise double fulfill test', () => {
-  it('should get double fulfill error', (callback) => {
+  it('should get double fulfill error', callback => {
     var errorHandler = err => callback()
 
     var createPromise = doubleFulfillPromiseConstructor(

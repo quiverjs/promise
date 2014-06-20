@@ -25,7 +25,7 @@ describe('promise integrated test', () => {
     return promise.should.be.rejected
   })
 
-  it('should get double fulfill error', (callback) => {
+  it('should get double fulfill error', callback => {
     var errorHandler = err => callback()
 
     var createPromise = enableDebug({ errorHandler })
@@ -36,7 +36,7 @@ describe('promise integrated test', () => {
     })
   })
 
-  it('should get uncaught error', (callback) => {
+  it('should get uncaught error', callback => {
     var errorHandler = err => callback()
 
     var createPromise = enableDebug({ errorHandler, timeout: 200 })
