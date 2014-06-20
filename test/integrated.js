@@ -16,7 +16,7 @@ describe('promise integrated test', () => {
   })
 
   it('should get domain error', () => {
-    var createPromise = enableDebug({})
+    var createPromise = enableDebug()
 
     var promise = createPromise((resolve, reject) => {
       process.nextTick(() => { throw new Error('domain error') })

@@ -12,7 +12,7 @@ describe('promise integrated test', (function() {
     return promise.should.be.rejected;
   }));
   it('should get domain error', (function() {
-    var createPromise = enableDebug({});
+    var createPromise = enableDebug();
     var promise = createPromise((function(resolve, reject) {
       process.nextTick((function() {
         throw new Error('domain error');

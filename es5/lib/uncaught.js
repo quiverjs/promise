@@ -29,11 +29,11 @@ var detectUncaughtPromise = (function(promise, timeout, errorHandler, prevCaught
       return;
     if (!prevCaught) {
       var message = ("uncaught terminal promise detected. last then() was on: \n  " + stack);
-      errorHandler(new Error(message));
+      errorHandler(error(500, message));
     } else {
       promise.catch((function(err) {
         var message = ("exception occured inside error handler of last promise chain: \n  " + stack + " \nwith error: \n  " + err);
-        errorHandler(new Error(message));
+        errorHandler(error(500, message));
       }));
     }
   }), timeout);

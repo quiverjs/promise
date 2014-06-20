@@ -22,12 +22,13 @@ var defaultCreatePromise = (function(construct) {
   return new Promise(construct);
 });
 var currentCreatePromise = defaultCreatePromise;
-var enableDebug = (function($__0) {
-  var $__2,
-      $__3;
-  var $__1 = $traceurRuntime.assertObject($__0),
-      errorHandler = ($__2 = $__1.errorHandler) === void 0 ? console.log : $__2,
-      timeout = ($__3 = $__1.timeout) === void 0 ? 60000 : $__3;
+var enableDebug = (function() {
+  var $__1,
+      $__2;
+  var options = arguments[0] !== (void 0) ? arguments[0] : {};
+  var $__0 = $traceurRuntime.assertObject(options),
+      errorHandler = ($__1 = $__0.errorHandler) === void 0 ? console.log : $__1,
+      timeout = ($__2 = $__0.timeout) === void 0 ? 10000 : $__2;
   var createPromise = defaultCreatePromise;
   createPromise = uncaughtPromiseConstructor(createPromise, timeout, errorHandler);
   createPromise = domainPromiseConstructor(createPromise);
