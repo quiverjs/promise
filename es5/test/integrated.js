@@ -53,7 +53,7 @@ describe('promise integrated test', (function() {
       timeout: 200
     });
     createPromise((function(resolve, reject) {
-      reject(new Error('ignored rejection'));
+      return reject(new Error());
     })).catch((function(err) {
       throw new Error('error within catch handler');
     }));

@@ -23,12 +23,11 @@ var defaultCreatePromise = (function(construct) {
 });
 var currentCreatePromise = defaultCreatePromise;
 var enableDebug = (function() {
-  var $__1,
-      $__2;
+  var $__1;
   var options = arguments[0] !== (void 0) ? arguments[0] : {};
   var $__0 = $traceurRuntime.assertObject(options),
       errorHandler = ($__1 = $__0.errorHandler) === void 0 ? console.log : $__1,
-      timeout = ($__2 = $__0.timeout) === void 0 ? 10000 : $__2;
+      timeout = ($__1 = $__0.timeout) === void 0 ? 10000 : $__1;
   var createPromise = defaultCreatePromise;
   createPromise = uncaughtPromiseConstructor(createPromise, timeout, errorHandler);
   createPromise = domainPromiseConstructor(createPromise);

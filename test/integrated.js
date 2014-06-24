@@ -51,8 +51,8 @@ describe('promise integrated test', () => {
 
     var createPromise = enableDebug({ errorHandler, timeout: 200 })
 
-    createPromise((resolve, reject) => {
-      reject(new Error('ignored rejection'))
-    }).catch(err => { throw new Error('error within catch handler') })
+    createPromise((resolve, reject) =>
+      reject(new Error())
+    ).catch(err => { throw new Error('error within catch handler') })
   })
 })
