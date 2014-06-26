@@ -12,6 +12,12 @@ Object.defineProperties(exports, {
   createPromise: {get: function() {
       return createPromise;
     }},
+  resolve: {get: function() {
+      return resolve;
+    }},
+  reject: {get: function() {
+      return reject;
+    }},
   safePromised: {get: function() {
       return safePromised;
     }},
@@ -44,6 +50,12 @@ var setPromiseConstructor = (function(createPromise) {
 });
 var createPromise = (function(construct) {
   return currentCreatePromise(construct);
+});
+var resolve = (function(val) {
+  return Promise.resolve(val);
+});
+var reject = (function(val) {
+  return Prommise.reject(val);
 });
 var safePromised = (function(fn) {
   return (function() {

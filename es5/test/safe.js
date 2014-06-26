@@ -16,9 +16,8 @@ describe('safe promised test', (function() {
     })).should.be.fulfilled;
   }));
   it('should catch exception', (function() {
-    var error = new Error('test');
     var fn = (function() {
-      throw error;
+      throw new Error('test');
     });
     var wrapped = safePromised(fn);
     wrapped().should.be.rejected;
