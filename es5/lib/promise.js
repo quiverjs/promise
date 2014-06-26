@@ -55,7 +55,7 @@ var resolve = (function(val) {
   return Promise.resolve(val);
 });
 var reject = (function(val) {
-  return Prommise.reject(val);
+  return Promise.reject(val);
 });
 var safePromised = (function(fn) {
   return (function() {
