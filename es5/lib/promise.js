@@ -21,6 +21,9 @@ Object.defineProperties(exports, {
   safePromised: {get: function() {
       return safePromised;
     }},
+  promisify: {get: function() {
+      return promisify;
+    }},
   __esModule: {value: true}
 });
 var domainPromiseConstructor = $traceurRuntime.assertObject(require('./domain.js')).domainPromiseConstructor;
@@ -64,6 +67,18 @@ var safePromised = (function(fn) {
       args[$__0] = arguments[$__0];
     return createPromise((function(resolve) {
       return resolve(fn.apply(null, $traceurRuntime.toObject(args)));
+    }));
+  });
+});
+var promisify = (function(fn) {
+  return (function() {
+    for (var args = [],
+        $__0 = 0; $__0 < arguments.length; $__0++)
+      args[$__0] = arguments[$__0];
+    return createPromise((function(resolve, reject) {
+      return fn.apply(null, $traceurRuntime.spread(args, [(function(err, result) {
+        return err ? reject(err) : resolve(result);
+      })]));
     }));
   });
 });
