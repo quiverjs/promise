@@ -12,6 +12,9 @@ Object.defineProperties(exports, {
   createPromise: {get: function() {
       return createPromise;
     }},
+  promiseChain: {get: function() {
+      return promiseChain;
+    }},
   resolve: {get: function() {
       return resolve;
     }},
@@ -30,6 +33,7 @@ var domainPromiseConstructor = $traceurRuntime.assertObject(require('./domain.js
 var timeoutPromiseConstructor = $traceurRuntime.assertObject(require('./timeout.js')).timeoutPromiseConstructor;
 var uncaughtPromiseConstructor = $traceurRuntime.assertObject(require('./uncaught.js')).uncaughtPromiseConstructor;
 var doubleFulfillPromiseConstructor = $traceurRuntime.assertObject(require('./fulfill.js')).doubleFulfillPromiseConstructor;
+var error = $traceurRuntime.assertObject(require('quiver-error')).error;
 var defaultCreatePromise = (function(construct) {
   return new Promise(construct);
 });
@@ -53,6 +57,13 @@ var setPromiseConstructor = (function(createPromise) {
 });
 var createPromise = (function(construct) {
   return currentCreatePromise(construct);
+});
+var promiseChain = (function(construct) {
+  var token = {};
+  return resolve(construct(token)).then((function(result) {
+    if (result !== token)
+      return reject(error(500, 'incomplete promise chain detected'));
+  }));
 });
 var resolve = (function(val) {
   return Promise.resolve(val);

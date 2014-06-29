@@ -55,4 +55,5 @@ describe('promise integrated test', () => {
       reject(new Error())
     ).catch(err => { throw new Error('error within catch handler') })
   })
+
 })

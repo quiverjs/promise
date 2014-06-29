@@ -5,7 +5,9 @@ var chaiAsPromised = require('chai-as-promised')
 chai.use(chaiAsPromised)
 chai.should()
 
-import { safePromised, promisify } from '../lib/promise.js'
+import { 
+  safePromised, promisify, resolve, promiseChain 
+} from '../lib/promise.js'
 
 describe('safe promised test', () => {
   it('should return promise', () => {
@@ -20,7 +22,7 @@ describe('safe promised test', () => {
     var fn = () => { throw new Error('test') }
     var wrapped = safePromised(fn)
 
-    wrapped().should.be.rejected
+    return wrapped().should.be.rejected
   })
 })
 
@@ -39,4 +41,16 @@ describe('promisify test', () => {
 
   it('should reject async errors', () =>
     promisedError().should.be.rejected)
+})
+
+describe('promise chain test', () => {
+  it('incomplete chain should be rejected', () => 
+    promiseChain(complete => {
+      // missing return
+      resolve().then(() => complete)
+    }).should.be.rejected)
+
+  it('must return complete token as final resolved value', () =>
+    promiseChain(complete =>
+      resolve().then(() => complete)))
 })
