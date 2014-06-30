@@ -66,10 +66,14 @@ var promiseChain = (function(construct) {
   }));
 });
 var resolve = (function(val) {
-  return Promise.resolve(val);
+  return createPromise((function(resolve) {
+    return resolve(val);
+  }));
 });
-var reject = (function(val) {
-  return Promise.reject(val);
+var reject = (function(err) {
+  return createPromise((function(resolve, reject) {
+    return reject(err);
+  }));
 });
 var safePromised = (function(fn) {
   return (function() {
