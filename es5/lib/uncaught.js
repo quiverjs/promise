@@ -9,6 +9,8 @@ Object.defineProperties(exports, {
   __esModule: {value: true}
 });
 var wrapCallback = (function(callback) {
+  if (!callback)
+    return callback;
   return (function() {
     for (var args = [],
         $__0 = 0; $__0 < arguments.length; $__0++)
