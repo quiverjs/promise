@@ -27,6 +27,9 @@ Object.defineProperties(exports, {
   promisify: {get: function() {
       return promisify;
     }},
+  async: {get: function() {
+      return async;
+    }},
   __esModule: {value: true}
 });
 var domainPromiseConstructor = $traceurRuntime.assertObject(require('./domain.js')).domainPromiseConstructor;
@@ -95,5 +98,38 @@ var promisify = (function(fn) {
         return err ? reject(err) : resolve(result);
       })]));
     }));
+  });
+});
+var runGenerator = (function(gen) {
+  var doNext = (function(action) {
+    try {
+      var $__1 = $traceurRuntime.assertObject(action()),
+          done = $__1.done,
+          value = $__1.value;
+    } catch (err) {
+      return reject(err);
+    }
+    if (done)
+      return value;
+    return resolve(value).then((function(result) {
+      return doNext((function() {
+        return gen.next(result);
+      }));
+    }), (function(err) {
+      return doNext((function() {
+        return gen.throw(err);
+      }));
+    }));
+  });
+  return resolve(doNext((function() {
+    return gen.next();
+  })));
+});
+var async = (function(fn) {
+  return (function() {
+    for (var args = [],
+        $__0 = 0; $__0 < arguments.length; $__0++)
+      args[$__0] = arguments[$__0];
+    return runGenerator(fn.apply(null, $traceurRuntime.toObject(args)));
   });
 });
