@@ -30,6 +30,9 @@ Object.defineProperties(exports, {
   async: {get: function() {
       return async;
     }},
+  timeout: {get: function() {
+      return timeout;
+    }},
   __esModule: {value: true}
 });
 var domainPromiseConstructor = $traceurRuntime.assertObject(require('./domain.js')).domainPromiseConstructor;
@@ -132,4 +135,9 @@ var async = (function(fn) {
       args[$__0] = arguments[$__0];
     return runGenerator(fn.apply(null, $traceurRuntime.toObject(args)));
   });
+});
+var timeout = (function(time) {
+  return createPromise((function(resolve) {
+    return setTimeout(resolve, time);
+  }));
 });
