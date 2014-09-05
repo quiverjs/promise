@@ -20,7 +20,7 @@
     "gulp": "^3.8.7",
     "mocha": "^1.21.4",
     "gulp-traceur": "^0.13.0",
-    "chai-as-promised": "^4.1.1",
+    "chai-as-promised": "^4.1.1"
   },
   "bugs": {
     "url": "https://github.com/quiverjs/promise/issues",
