@@ -1,7 +1,9 @@
 "use strict";
+var $___46__46__47_lib_47_promise_46_js__,
+    $___46__46__47_lib_47_uncaught_46_js__;
 var traceur = require('traceur');
-var defaultCreatePromise = $traceurRuntime.assertObject(require('../lib/promise.js')).defaultCreatePromise;
-var uncaughtPromiseConstructor = $traceurRuntime.assertObject(require('../lib/uncaught.js')).uncaughtPromiseConstructor;
+var defaultCreatePromise = ($___46__46__47_lib_47_promise_46_js__ = require("../lib/promise.js"), $___46__46__47_lib_47_promise_46_js__ && $___46__46__47_lib_47_promise_46_js__.__esModule && $___46__46__47_lib_47_promise_46_js__ || {default: $___46__46__47_lib_47_promise_46_js__}).defaultCreatePromise;
+var uncaughtPromiseConstructor = ($___46__46__47_lib_47_uncaught_46_js__ = require("../lib/uncaught.js"), $___46__46__47_lib_47_uncaught_46_js__ && $___46__46__47_lib_47_uncaught_46_js__.__esModule && $___46__46__47_lib_47_uncaught_46_js__ || {default: $___46__46__47_lib_47_uncaught_46_js__}).uncaughtPromiseConstructor;
 var chai = require('chai');
 var should = chai.should();
 describe('promise uncaught error test', (function() {

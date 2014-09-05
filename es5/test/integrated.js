@@ -1,10 +1,11 @@
 "use strict";
+var $___46__46__47_lib_47_promise_46_js__;
 var traceur = require('traceur');
 var chai = require('chai');
 var chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 chai.should();
-var enableDebug = $traceurRuntime.assertObject(require('../lib/promise.js')).enableDebug;
+var enableDebug = ($___46__46__47_lib_47_promise_46_js__ = require("../lib/promise.js"), $___46__46__47_lib_47_promise_46_js__ && $___46__46__47_lib_47_promise_46_js__.__esModule && $___46__46__47_lib_47_promise_46_js__ || {default: $___46__46__47_lib_47_promise_46_js__}).enableDebug;
 describe('promise integrated test', (function() {
   it('should get timeout error', (function() {
     var createPromise = enableDebug({timeout: 200});

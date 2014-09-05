@@ -8,7 +8,9 @@ Object.defineProperties(exports, {
     }},
   __esModule: {value: true}
 });
-var createDomain = $traceurRuntime.assertObject(require('domain')).create;
+var $__domain__;
+var domain = ($__domain__ = require("domain"), $__domain__ && $__domain__.__esModule && $__domain__ || {default: $__domain__}).default;
+var createDomain = domain.create;
 var domainProtectedPromise = (function(createPromise, construct) {
   return createPromise((function(resolve, reject) {
     var domain = createDomain();

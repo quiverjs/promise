@@ -15,7 +15,7 @@ var wrapCallback = (function(callback) {
     for (var args = [],
         $__0 = 0; $__0 < arguments.length; $__0++)
       args[$__0] = arguments[$__0];
-    var result = callback.apply(null, $traceurRuntime.toObject(args));
+    var result = callback.apply(null, $traceurRuntime.spread(args));
     if (result && result.__endPromiseChain) {
       result.__endPromiseChain();
     }

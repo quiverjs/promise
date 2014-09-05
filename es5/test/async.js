@@ -1,8 +1,9 @@
 "use strict";
+var $___46__46__47_lib_47_promise_46_js__;
 var traceur = require('traceur');
 var chai = require('chai');
 var chaiAsPromised = require('chai-as-promised');
-var $__0 = $traceurRuntime.assertObject(require('../lib/promise.js')),
+var $__0 = ($___46__46__47_lib_47_promise_46_js__ = require("../lib/promise.js"), $___46__46__47_lib_47_promise_46_js__ && $___46__46__47_lib_47_promise_46_js__.__esModule && $___46__46__47_lib_47_promise_46_js__ || {default: $___46__46__47_lib_47_promise_46_js__}),
     async = $__0.async,
     promisify = $__0.promisify;
 chai.use(chaiAsPromised);

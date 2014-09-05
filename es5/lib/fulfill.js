@@ -8,7 +8,8 @@ Object.defineProperties(exports, {
     }},
   __esModule: {value: true}
 });
-var error = $traceurRuntime.assertObject(require('quiver-error')).error;
+var $__quiver_45_error__;
+var error = ($__quiver_45_error__ = require("quiver-error"), $__quiver_45_error__ && $__quiver_45_error__.__esModule && $__quiver_45_error__ || {default: $__quiver_45_error__}).error;
 var detectDoubleFulfilledPromise = (function(createPromise, construct, errorHandler) {
   return createPromise((function(resolve, reject) {
     var fulfilled = false;

@@ -27,6 +27,9 @@ Object.defineProperties(exports, {
   promisify: {get: function() {
       return promisify;
     }},
+  runAsync: {get: function() {
+      return runAsync;
+    }},
   async: {get: function() {
       return async;
     }},
@@ -35,21 +38,27 @@ Object.defineProperties(exports, {
     }},
   __esModule: {value: true}
 });
-var domainPromiseConstructor = $traceurRuntime.assertObject(require('./domain.js')).domainPromiseConstructor;
-var timeoutPromiseConstructor = $traceurRuntime.assertObject(require('./timeout.js')).timeoutPromiseConstructor;
-var uncaughtPromiseConstructor = $traceurRuntime.assertObject(require('./uncaught.js')).uncaughtPromiseConstructor;
-var doubleFulfillPromiseConstructor = $traceurRuntime.assertObject(require('./fulfill.js')).doubleFulfillPromiseConstructor;
-var error = $traceurRuntime.assertObject(require('quiver-error')).error;
+var $__domain_46_js__,
+    $__timeout_46_js__,
+    $__uncaught_46_js__,
+    $__fulfill_46_js__,
+    $__quiver_45_error__;
+var domainPromiseConstructor = ($__domain_46_js__ = require("./domain.js"), $__domain_46_js__ && $__domain_46_js__.__esModule && $__domain_46_js__ || {default: $__domain_46_js__}).domainPromiseConstructor;
+var timeoutPromiseConstructor = ($__timeout_46_js__ = require("./timeout.js"), $__timeout_46_js__ && $__timeout_46_js__.__esModule && $__timeout_46_js__ || {default: $__timeout_46_js__}).timeoutPromiseConstructor;
+var uncaughtPromiseConstructor = ($__uncaught_46_js__ = require("./uncaught.js"), $__uncaught_46_js__ && $__uncaught_46_js__.__esModule && $__uncaught_46_js__ || {default: $__uncaught_46_js__}).uncaughtPromiseConstructor;
+var doubleFulfillPromiseConstructor = ($__fulfill_46_js__ = require("./fulfill.js"), $__fulfill_46_js__ && $__fulfill_46_js__.__esModule && $__fulfill_46_js__ || {default: $__fulfill_46_js__}).doubleFulfillPromiseConstructor;
+var error = ($__quiver_45_error__ = require("quiver-error"), $__quiver_45_error__ && $__quiver_45_error__.__esModule && $__quiver_45_error__ || {default: $__quiver_45_error__}).error;
 var defaultCreatePromise = (function(construct) {
   return new Promise(construct);
 });
 var currentCreatePromise = defaultCreatePromise;
 var enableDebug = (function() {
-  var $__2;
+  var $__7,
+      $__8;
   var options = arguments[0] !== (void 0) ? arguments[0] : {};
-  var $__1 = $traceurRuntime.assertObject(options),
-      errorHandler = ($__2 = $__1.errorHandler) === void 0 ? console.log : $__2,
-      timeout = ($__2 = $__1.timeout) === void 0 ? 10000 : $__2;
+  var $__6 = options,
+      errorHandler = ($__7 = $__6.errorHandler) === void 0 ? console.log : $__7,
+      timeout = ($__8 = $__6.timeout) === void 0 ? 10000 : $__8;
   var createPromise = defaultCreatePromise;
   createPromise = uncaughtPromiseConstructor(createPromise, timeout, errorHandler);
   createPromise = domainPromiseConstructor(createPromise);
@@ -84,18 +93,18 @@ var reject = (function(err) {
 var safePromised = (function(fn) {
   return (function() {
     for (var args = [],
-        $__0 = 0; $__0 < arguments.length; $__0++)
-      args[$__0] = arguments[$__0];
+        $__5 = 0; $__5 < arguments.length; $__5++)
+      args[$__5] = arguments[$__5];
     return createPromise((function(resolve) {
-      return resolve(fn.apply(null, $traceurRuntime.toObject(args)));
+      return resolve(fn.apply(null, $traceurRuntime.spread(args)));
     }));
   });
 });
 var promisify = (function(fn) {
   return (function() {
     for (var args = [],
-        $__0 = 0; $__0 < arguments.length; $__0++)
-      args[$__0] = arguments[$__0];
+        $__5 = 0; $__5 < arguments.length; $__5++)
+      args[$__5] = arguments[$__5];
     return createPromise((function(resolve, reject) {
       return fn.apply(null, $traceurRuntime.spread(args, [(function(err, result) {
         return err ? reject(err) : resolve(result);
@@ -103,12 +112,12 @@ var promisify = (function(fn) {
     }));
   });
 });
-var runGenerator = (function(gen) {
+var runAsync = (function(gen) {
   var doNext = (function(action) {
     try {
-      var $__1 = $traceurRuntime.assertObject(action()),
-          done = $__1.done,
-          value = $__1.value;
+      var $__7 = action(),
+          done = $__7.done,
+          value = $__7.value;
     } catch (err) {
       return reject(err);
     }
@@ -131,9 +140,9 @@ var runGenerator = (function(gen) {
 var async = (function(fn) {
   return (function() {
     for (var args = [],
-        $__0 = 0; $__0 < arguments.length; $__0++)
-      args[$__0] = arguments[$__0];
-    return runGenerator(fn.apply(null, $traceurRuntime.toObject(args)));
+        $__5 = 0; $__5 < arguments.length; $__5++)
+      args[$__5] = arguments[$__5];
+    return runAsync(fn.apply(null, $traceurRuntime.spread(args)));
   });
 });
 var timeout = (function(time) {
