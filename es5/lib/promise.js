@@ -36,6 +36,12 @@ Object.defineProperties(exports, {
   timeout: {get: function() {
       return timeout;
     }},
+  promisifyMethod: {get: function() {
+      return promisifyMethod;
+    }},
+  promisifyMethods: {get: function() {
+      return promisifyMethods;
+    }},
   __esModule: {value: true}
 });
 var $__domain_46_js__,
@@ -149,4 +155,19 @@ var timeout = (function(time) {
   return createPromise((function(resolve) {
     return setTimeout(resolve, time);
   }));
+});
+var promisifyMethod = (function(object, method) {
+  return promisify((function() {
+    var $__9;
+    for (var args = [],
+        $__5 = 0; $__5 < arguments.length; $__5++)
+      args[$__5] = arguments[$__5];
+    return ($__9 = object)[method].apply($__9, $traceurRuntime.spread(args));
+  }));
+});
+var promisifyMethods = (function(object, methods) {
+  return methods.reduce((function(result, method) {
+    result[method] = promisifyMethod(object, method);
+    return result;
+  }), {});
 });
