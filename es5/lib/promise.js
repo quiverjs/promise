@@ -121,9 +121,9 @@ var promisify = (function(fn) {
 var runAsync = (function(gen) {
   var doNext = (function(action) {
     try {
-      var $__7 = action(),
-          done = $__7.done,
-          value = $__7.value;
+      var $__6 = action(),
+          done = $__6.done,
+          value = $__6.value;
     } catch (err) {
       return reject(err);
     }
