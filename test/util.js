@@ -42,15 +42,3 @@ describe('promisify test', () => {
   it('should reject async errors', () =>
     promisedError().should.be.rejected)
 })
-
-describe('promise chain test', () => {
-  it('incomplete chain should be rejected', () => 
-    promiseChain(complete => {
-      // missing return
-      resolve().then(() => complete)
-    }).should.be.rejected)
-
-  it('must return complete token as final resolved value', () =>
-    promiseChain(complete =>
-      resolve().then(() => complete)))
-})

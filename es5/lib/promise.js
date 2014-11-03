@@ -1,19 +1,7 @@
 "use strict";
 Object.defineProperties(exports, {
-  defaultCreatePromise: {get: function() {
-      return defaultCreatePromise;
-    }},
-  enableDebug: {get: function() {
-      return enableDebug;
-    }},
-  setPromiseConstructor: {get: function() {
-      return setPromiseConstructor;
-    }},
   createPromise: {get: function() {
       return createPromise;
-    }},
-  promiseChain: {get: function() {
-      return promiseChain;
     }},
   resolve: {get: function() {
       return resolve;
@@ -44,63 +32,22 @@ Object.defineProperties(exports, {
     }},
   __esModule: {value: true}
 });
-var $__domain_46_js__,
-    $__timeout_46_js__,
-    $__uncaught_46_js__,
-    $__fulfill_46_js__,
-    $__quiver_45_error__;
-var domainPromiseConstructor = ($__domain_46_js__ = require("./domain.js"), $__domain_46_js__ && $__domain_46_js__.__esModule && $__domain_46_js__ || {default: $__domain_46_js__}).domainPromiseConstructor;
-var timeoutPromiseConstructor = ($__timeout_46_js__ = require("./timeout.js"), $__timeout_46_js__ && $__timeout_46_js__.__esModule && $__timeout_46_js__ || {default: $__timeout_46_js__}).timeoutPromiseConstructor;
-var uncaughtPromiseConstructor = ($__uncaught_46_js__ = require("./uncaught.js"), $__uncaught_46_js__ && $__uncaught_46_js__.__esModule && $__uncaught_46_js__ || {default: $__uncaught_46_js__}).uncaughtPromiseConstructor;
-var doubleFulfillPromiseConstructor = ($__fulfill_46_js__ = require("./fulfill.js"), $__fulfill_46_js__ && $__fulfill_46_js__.__esModule && $__fulfill_46_js__ || {default: $__fulfill_46_js__}).doubleFulfillPromiseConstructor;
+var $__quiver_45_error__;
 var error = ($__quiver_45_error__ = require("quiver-error"), $__quiver_45_error__ && $__quiver_45_error__.__esModule && $__quiver_45_error__ || {default: $__quiver_45_error__}).error;
-var defaultCreatePromise = (function(construct) {
+var createPromise = (function(construct) {
   return new Promise(construct);
 });
-var currentCreatePromise = defaultCreatePromise;
-var enableDebug = (function() {
-  var $__7,
-      $__8;
-  var options = arguments[0] !== (void 0) ? arguments[0] : {};
-  var $__6 = options,
-      errorHandler = ($__7 = $__6.errorHandler) === void 0 ? console.log : $__7,
-      timeout = ($__8 = $__6.timeout) === void 0 ? 10000 : $__8;
-  var createPromise = defaultCreatePromise;
-  createPromise = uncaughtPromiseConstructor(createPromise, timeout, errorHandler);
-  createPromise = domainPromiseConstructor(createPromise);
-  createPromise = timeoutPromiseConstructor(createPromise, timeout);
-  createPromise = doubleFulfillPromiseConstructor(createPromise, errorHandler);
-  setPromiseConstructor(createPromise);
-  return createPromise;
-});
-var setPromiseConstructor = (function(createPromise) {
-  return currentCreatePromise = createPromise;
-});
-var createPromise = (function(construct) {
-  return currentCreatePromise(construct);
-});
-var promiseChain = (function(construct) {
-  var token = {};
-  return resolve(construct(token)).then((function(result) {
-    if (result !== token)
-      return reject(error(500, 'incomplete promise chain detected'));
-  }));
-});
 var resolve = (function(val) {
-  return createPromise((function(resolve) {
-    return resolve(val);
-  }));
+  return Promise.resolve(val);
 });
 var reject = (function(err) {
-  return createPromise((function(resolve, reject) {
-    return reject(err);
-  }));
+  return Promise.reject(err);
 });
 var safePromised = (function(fn) {
   return (function() {
     for (var args = [],
-        $__5 = 0; $__5 < arguments.length; $__5++)
-      args[$__5] = arguments[$__5];
+        $__1 = 0; $__1 < arguments.length; $__1++)
+      args[$__1] = arguments[$__1];
     return createPromise((function(resolve) {
       return resolve(fn.apply(null, $traceurRuntime.spread(args)));
     }));
@@ -109,8 +56,8 @@ var safePromised = (function(fn) {
 var promisify = (function(fn) {
   return (function() {
     for (var args = [],
-        $__5 = 0; $__5 < arguments.length; $__5++)
-      args[$__5] = arguments[$__5];
+        $__1 = 0; $__1 < arguments.length; $__1++)
+      args[$__1] = arguments[$__1];
     return createPromise((function(resolve, reject) {
       return fn.apply(null, $traceurRuntime.spread(args, [(function(err, result) {
         return err ? reject(err) : resolve(result);
@@ -121,9 +68,9 @@ var promisify = (function(fn) {
 var runAsync = (function(gen) {
   var doNext = (function(action) {
     try {
-      var $__6 = action(),
-          done = $__6.done,
-          value = $__6.value;
+      var $__2 = action(),
+          done = $__2.done,
+          value = $__2.value;
     } catch (err) {
       return reject(err);
     }
@@ -146,8 +93,8 @@ var runAsync = (function(gen) {
 var async = (function(fn) {
   return (function() {
     for (var args = [],
-        $__5 = 0; $__5 < arguments.length; $__5++)
-      args[$__5] = arguments[$__5];
+        $__1 = 0; $__1 < arguments.length; $__1++)
+      args[$__1] = arguments[$__1];
     return runAsync(fn.apply(null, $traceurRuntime.spread(args)));
   });
 });
@@ -158,11 +105,11 @@ var timeout = (function(time) {
 });
 var promisifyMethod = (function(object, method) {
   return promisify((function() {
-    var $__9;
+    var $__3;
     for (var args = [],
-        $__5 = 0; $__5 < arguments.length; $__5++)
-      args[$__5] = arguments[$__5];
-    return ($__9 = object)[method].apply($__9, $traceurRuntime.spread(args));
+        $__1 = 0; $__1 < arguments.length; $__1++)
+      args[$__1] = arguments[$__1];
+    return ($__3 = object)[method].apply($__3, $traceurRuntime.spread(args));
   }));
 });
 var promisifyMethods = (function(object, methods) {

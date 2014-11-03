@@ -48,19 +48,3 @@ describe('promisify test', (function() {
     return promisedError().should.be.rejected;
   }));
 }));
-describe('promise chain test', (function() {
-  it('incomplete chain should be rejected', (function() {
-    return promiseChain((function(complete) {
-      resolve().then((function() {
-        return complete;
-      }));
-    })).should.be.rejected;
-  }));
-  it('must return complete token as final resolved value', (function() {
-    return promiseChain((function(complete) {
-      return resolve().then((function() {
-        return complete;
-      }));
-    }));
-  }));
-}));
