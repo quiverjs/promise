@@ -9,6 +9,9 @@ Object.defineProperties(exports, {
   reject: {get: function() {
       return reject;
     }},
+  timeout: {get: function() {
+      return timeout;
+    }},
   safePromised: {get: function() {
       return safePromised;
     }},
@@ -20,9 +23,6 @@ Object.defineProperties(exports, {
     }},
   async: {get: function() {
       return async;
-    }},
-  timeout: {get: function() {
-      return timeout;
     }},
   promisifyMethod: {get: function() {
       return promisifyMethod;
@@ -42,6 +42,11 @@ var resolve = (function(val) {
 });
 var reject = (function(err) {
   return Promise.reject(err);
+});
+var timeout = (function(time) {
+  return createPromise((function(resolve) {
+    return setTimeout(resolve, time);
+  }));
 });
 var safePromised = (function(fn) {
   return (function() {
@@ -95,13 +100,8 @@ var async = (function(fn) {
     for (var args = [],
         $__1 = 0; $__1 < arguments.length; $__1++)
       args[$__1] = arguments[$__1];
-    return runAsync(fn.apply(null, $traceurRuntime.spread(args)));
+    return resolve(fn.apply(null, $traceurRuntime.spread(args))).then(runAsync);
   });
-});
-var timeout = (function(time) {
-  return createPromise((function(resolve) {
-    return setTimeout(resolve, time);
-  }));
 });
 var promisifyMethod = (function(object, method) {
   return promisify((function() {
