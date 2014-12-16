@@ -3,4 +3,4 @@ quiver-promise
 
 ES6 Promise helper utilities.
 
-[Documentation](https://github.com/quiverjs/doc/wiki/Promises)
+[Documentation](https://github.com/quiverjs/quiverjs/wiki/Promises)
