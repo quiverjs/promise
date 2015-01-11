@@ -116,5 +116,5 @@ var promisifyMethods = (function(object, methods) {
   return methods.reduce((function(result, method) {
     result[method] = promisifyMethod(object, method);
     return result;
-  }), {});
+  }), Object.create(object));
 });

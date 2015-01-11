@@ -6,7 +6,7 @@
   },
   "name": "quiver-promise",
   "desription": "ES6 Promise helper utilities",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "https://github.com/quiverjs/quiver-promise",
   "repository": {
     "url": "git@github.com:quiverjs/quiver-promise.git"
