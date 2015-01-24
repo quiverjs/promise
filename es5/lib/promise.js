@@ -34,21 +34,21 @@ Object.defineProperties(exports, {
 });
 var $__quiver_45_error__;
 var error = ($__quiver_45_error__ = require("quiver-error"), $__quiver_45_error__ && $__quiver_45_error__.__esModule && $__quiver_45_error__ || {default: $__quiver_45_error__}).error;
-var createPromise = (function(construct) {
+let createPromise = (function(construct) {
   return new Promise(construct);
 });
-var resolve = (function(val) {
+let resolve = (function(val) {
   return Promise.resolve(val);
 });
-var reject = (function(err) {
+let reject = (function(err) {
   return Promise.reject(err);
 });
-var timeout = (function(time) {
+let timeout = (function(time) {
   return createPromise((function(resolve) {
     return setTimeout(resolve, time);
   }));
 });
-var safePromised = (function(fn) {
+let safePromised = (function(fn) {
   return (function() {
     for (var args = [],
         $__1 = 0; $__1 < arguments.length; $__1++)
@@ -58,7 +58,7 @@ var safePromised = (function(fn) {
     }));
   });
 });
-var promisify = (function(fn) {
+let promisify = (function(fn) {
   return (function() {
     for (var args = [],
         $__1 = 0; $__1 < arguments.length; $__1++)
@@ -70,8 +70,8 @@ var promisify = (function(fn) {
     }));
   });
 });
-var runAsync = (function(gen) {
-  var doNext = (function(action) {
+let runAsync = (function(gen) {
+  let doNext = (function(action) {
     try {
       var $__2 = action(),
           done = $__2.done,
@@ -95,7 +95,7 @@ var runAsync = (function(gen) {
     return gen.next();
   })));
 });
-var async = (function(fn) {
+let async = (function(fn) {
   return (function() {
     for (var args = [],
         $__1 = 0; $__1 < arguments.length; $__1++)
@@ -103,7 +103,7 @@ var async = (function(fn) {
     return resolve(fn.apply(null, $traceurRuntime.spread(args))).then(runAsync);
   });
 });
-var promisifyMethod = (function(object, method) {
+let promisifyMethod = (function(object, method) {
   return promisify((function() {
     var $__3;
     for (var args = [],
@@ -112,7 +112,7 @@ var promisifyMethod = (function(object, method) {
     return ($__3 = object)[method].apply($__3, $traceurRuntime.spread(args));
   }));
 });
-var promisifyMethods = (function(object, methods) {
+let promisifyMethods = (function(object, methods) {
   return methods.reduce((function(result, method) {
     result[method] = promisifyMethod(object, method);
     return result;

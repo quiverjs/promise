@@ -1,9 +1,9 @@
-var traceur = require('traceur')
-var chai = require('chai')
-var chaiAsPromised = require('chai-as-promised')
+import 'traceur'
+import chai from 'chai'
+import chaiAsPromised from 'chai-as-promised'
 
 chai.use(chaiAsPromised)
-chai.should()
+let should = chai.should()
 
 import { 
   safePromised, promisify, resolve, promiseChain 
@@ -11,30 +11,30 @@ import {
 
 describe('safe promised test', () => {
   it('should return promise', () => {
-    var fn = () => 'foo'
-    var wrapped = safePromised(fn)
+    let fn = () => 'foo'
+    let wrapped = safePromised(fn)
 
     wrapped().then((res) => 
       res.should.equal('foo')).should.be.fulfilled
   })
 
   it('should catch exception', () => {
-    var fn = () => { throw new Error('test') }
-    var wrapped = safePromised(fn)
+    let fn = () => { throw new Error('test') }
+    let wrapped = safePromised(fn)
 
     return wrapped().should.be.rejected
   })
 })
 
 describe('promisify test', () => {
-  var asyncTimesTwo = (num, callback) => 
+  let asyncTimesTwo = (num, callback) => 
     process.nextTick(() => callback(null, num*2))
 
-  var asyncError = (callback) =>
+  let asyncError = (callback) =>
     process.nextTick(() => callback(new Error()))
 
-  var promisedTimesTwo = promisify(asyncTimesTwo)
-  var promisedError = promisify(asyncError)
+  let promisedTimesTwo = promisify(asyncTimesTwo)
+  let promisedError = promisify(asyncError)
 
   it('should convertible to promise', () =>
     promisedTimesTwo(3).should.eventually.equal(6))

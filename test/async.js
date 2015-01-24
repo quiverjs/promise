@@ -1,23 +1,23 @@
-var traceur = require('traceur')
-var chai = require('chai')
-var chaiAsPromised = require('chai-as-promised')
+import 'traceur'
+import chai from 'chai'
+import chaiAsPromised from 'chai-as-promised'
 
 import { async, promisify } from '../lib/promise.js'
 
 chai.use(chaiAsPromised)
-chai.should()
+let should = chai.should()
 
-var nextTick = promisify(process.nextTick)
+let nextTick = promisify(process.nextTick)
 
-var timesTwo = (num) => 
+let timesTwo = (num) => 
   nextTick().then(() => num*2)
 
-var plusThree = (num) =>
+let plusThree = (num) =>
   nextTick().then(() => num+3)
 
 describe('async generator test', () => {
   it('nested yield', () => {
-    var calc = async(function*(num) {
+    let calc = async(function*(num) {
       return yield timesTwo(yield plusThree(num))
     })
 

@@ -1,65 +1,32 @@
 "use strict";
-var $___46__46__47_lib_47_promise_46_js__;
-var traceur = require('traceur');
-var chai = require('chai');
-var chaiAsPromised = require('chai-as-promised');
-var $__0 = ($___46__46__47_lib_47_promise_46_js__ = require("../lib/promise.js"), $___46__46__47_lib_47_promise_46_js__ && $___46__46__47_lib_47_promise_46_js__.__esModule && $___46__46__47_lib_47_promise_46_js__ || {default: $___46__46__47_lib_47_promise_46_js__}),
-    async = $__0.async,
-    promisify = $__0.promisify;
+var $__traceur_64_0_46_0_46_8__,
+    $__chai__,
+    $__chai_45_as_45_promised__,
+    $___46__46__47_lib_47_promise_46_js__;
+($__traceur_64_0_46_0_46_8__ = require("traceur"), $__traceur_64_0_46_0_46_8__ && $__traceur_64_0_46_0_46_8__.__esModule && $__traceur_64_0_46_0_46_8__ || {default: $__traceur_64_0_46_0_46_8__});
+var chai = ($__chai__ = require("chai"), $__chai__ && $__chai__.__esModule && $__chai__ || {default: $__chai__}).default;
+var chaiAsPromised = ($__chai_45_as_45_promised__ = require("chai-as-promised"), $__chai_45_as_45_promised__ && $__chai_45_as_45_promised__.__esModule && $__chai_45_as_45_promised__ || {default: $__chai_45_as_45_promised__}).default;
+var $__2 = ($___46__46__47_lib_47_promise_46_js__ = require("../lib/promise.js"), $___46__46__47_lib_47_promise_46_js__ && $___46__46__47_lib_47_promise_46_js__.__esModule && $___46__46__47_lib_47_promise_46_js__ || {default: $___46__46__47_lib_47_promise_46_js__}),
+    async = $__2.async,
+    promisify = $__2.promisify;
 chai.use(chaiAsPromised);
-chai.should();
-var nextTick = promisify(process.nextTick);
-var timesTwo = (function(num) {
+let should = chai.should();
+let nextTick = promisify(process.nextTick);
+let timesTwo = (function(num) {
   return nextTick().then((function() {
     return num * 2;
   }));
 });
-var plusThree = (function(num) {
+let plusThree = (function(num) {
   return nextTick().then((function() {
     return num + 3;
   }));
 });
 describe('async generator test', (function() {
   it('nested yield', (function() {
-    var calc = async($traceurRuntime.initGeneratorFunction(function $__1(num) {
-      var $__2,
-          $__3,
-          $__4,
-          $__5;
-      return $traceurRuntime.createGeneratorInstance(function($ctx) {
-        while (true)
-          switch ($ctx.state) {
-            case 0:
-              $__2 = plusThree(num);
-              $ctx.state = 10;
-              break;
-            case 10:
-              $ctx.state = 2;
-              return $__2;
-            case 2:
-              $__3 = $ctx.sent;
-              $ctx.state = 4;
-              break;
-            case 4:
-              $__4 = timesTwo($__3);
-              $ctx.state = 12;
-              break;
-            case 12:
-              $ctx.state = 6;
-              return $__4;
-            case 6:
-              $__5 = $ctx.sent;
-              $ctx.state = 8;
-              break;
-            case 8:
-              $ctx.returnValue = $__5;
-              $ctx.state = -2;
-              break;
-            default:
-              return $ctx.end();
-          }
-      }, $__1, this);
-    }));
+    let calc = async(function*(num) {
+      return yield timesTwo(yield plusThree(num));
+    });
     return calc(1).should.eventually.equal(8);
   }));
 }));
