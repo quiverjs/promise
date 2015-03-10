@@ -1,33 +1,34 @@
 import { error } from 'quiver-error'
 
-export let createPromise = construct => 
+export const createPromise = construct => 
   new Promise(construct)
 
-export let resolve = val => 
+export const resolve = val => 
   Promise.resolve(val)
 
-export let reject = err => 
+export const reject = err => 
   Promise.reject(err)
 
-export let timeout = time =>
+export const timeout = time =>
   createPromise(resolve =>
     setTimeout(resolve, time))
 
-export let safePromised = fn =>
+export const safePromised = fn =>
   (...args) =>
     createPromise(resolve =>
       resolve(fn(...args)))
 
-export let promisify = fn =>
+export const promisify = fn =>
   (...args) =>
     createPromise((resolve, reject) =>
       fn(...args, (err, result) =>
         err ? reject(err) : resolve(result)))
 
-export let runAsync = gen => {
-  let doNext = action => {
+export const runAsync = gen => {
+  const doNext = action => {
+    let done, value
     try {
-      var { done, value } = action()
+      ({ done, value }) = action()
     } catch(err) {
       return reject(err)
     }
@@ -42,15 +43,15 @@ export let runAsync = gen => {
   return resolve(doNext(() => gen.next()))
 }
 
-export let async = fn =>
+export const async = fn =>
   (...args) => 
     resolve(fn(...args)).then(runAsync)
 
-export let promisifyMethod = (object, method) =>
+export const promisifyMethod = (object, method) =>
   promisify((...args) =>
     object[method](...args))
 
-export let promisifyMethods = (object, methods) =>
+export const promisifyMethods = (object, methods) =>
   methods.reduce((result, method) => {
     result[method] = promisifyMethod(object, method)
     return result
