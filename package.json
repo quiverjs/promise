@@ -6,16 +6,16 @@
   },
   "name": "quiver-promise",
   "desription": "ES6 Promise helper utilities",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "homepage": "https://github.com/quiverjs/quiver-promise",
   "repository": {
     "url": "git@github.com:quiverjs/quiver-promise.git"
   },
   "dependencies": {
-    "babel": "~4.7.7",
-    "quiver-error": "~1.2.0"
+    "quiver-error": "~1.2.1"
   },
   "devDependencies": {
+    "babel": "~4.7.12",
     "chai": "^1.10.0",
     "mocha": "^2.1.0",
     "chai-as-promised": "^4.1.1"
