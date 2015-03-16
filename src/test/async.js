@@ -22,4 +22,12 @@ describe('async generator test', () => {
 
     return calc(1).should.eventually.equal(8)
   })
+
+  it('exception test', () => {
+    const fn = async(function*() {
+      throw new Error('fail')
+    })
+
+    return fn().should.be.rejected
+  })
 })
